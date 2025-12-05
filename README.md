@@ -1,6 +1,6 @@
-# Spring Boot Microservice Example (Eureka Server, Config Server, API Gateway, Services , Zipkin, Redis, Docker, Kubernetes)
+# Spring Boot Microservice Example (Eureka Server, Config Server, API Gateway, Services , Zipkin, Redis, Resilience4j, Docker, Kubernetes)
 
-<img src="screenshots/springbootmicroservices.drawio_image.png" alt="Main Information" width="800" height="900">
+<img src="screenshots/springbootmicroservice_drawio.png" alt="Main Information" width="800" height="500">
 
 # About the project
 <ul style="list-style-type:disc">
@@ -143,6 +143,9 @@
 * Zipkin
 * Docker
 * Kubernetes
+* Jenkins
+* Junit
+* Log4j2
 
 ## Valid Request Body
 
@@ -271,25 +274,25 @@
 
 <b>2 )</b> Go to the project's home directory :  `cd springbootmicroservicedailybuffer`
 
-<b>3 )</b> Run Service Registry (Eureka Server)
+<b>3 )</b> Run <b>Service Registry (Eureka Server)</b>
 
-<b>4 )</b> Run config server
+<b>4 )</b> Run <b>config server</b>
 
-<b>5 )</b> Run zipkin and redis through these commands shown below on docker
+<b>5 )</b> Run <b>zipkin</b> and <b>redis</b> through these commands shown below on <b>Docker</b>
 ```
     docker run -d -p 9411:9411 openzipkin/zipkin
     docker run -d --name redis -p 6379:6379 redis
 ```
 
-<b>6 )</b> Run api gateway
+<b>6 )</b> Run <b>api gateway</b>
 
-<b>7 )</b> Run other services (auth-service, orderservice, paymentservice and lastly productservice)
+<b>7 )</b> Run other services (<b>auth-service</b>, <b>orderservice</b>, <b>paymentservice</b> and lastly <b>productservice</b>)
 
 <b>Docker</b>
 
 <b>1 )</b> Install <b>Docker Desktop</b>. Here is the installation <b>link</b> : https://docs.docker.com/docker-for-windows/install/
 
-<b>2 )</b> Build jar file for all services shown below
+<b>2 )</b> Build <b>jar</b> file for all services shown below
 
 <table style="width:100%">
   <tr>
@@ -306,27 +309,27 @@
   </tr>
   <tr>
     <td>apigateway</td>
-    <td>mvn clean install -D skipTests</td>
+    <td>mvn clean install -DskipTests</td>
   </tr>
   <tr>
     <td>auth-service</td>
-    <td>mvn clean install -D skipTests</td>
+    <td>mvn clean install -DskipTests</td>
   </tr>
   <tr>
     <td>orderservice</td>
-    <td>mvn clean install -D skipTests</td>
+    <td>mvn clean install -DskipTests</td>
   </tr>
   <tr>
     <td>productservice</td>
-    <td>mvn clean install -D skipTests</td>
+    <td>mvn clean install -DskipTests</td>
   </tr>
   <tr>
     <td>paymentservice</td>
-    <td>mvn clean install -D skipTests</td>
+    <td>mvn clean install -DskipTests</td>
   </tr>
 </table>
 
-<b>3 )</b> Build all images and push to <b>Docker Hub</b>
+<b>3 )</b> Build all <b>images</b> and push to <b>Docker Hub</b>
 ```
     1 ) service-registry
      
@@ -371,7 +374,7 @@
         - docker push noyandocker/paymentservice
 ```
 
-<b>4 )</b> Run all Containers through this command shown below under main folder
+<b>4 )</b> Run all <b>Containers</b> through this command shown below under main folder
 ```
     docker-compose up -d
 ```
@@ -401,6 +404,28 @@
     kubectl apply -f k8s
 ```
 
+<b>6 )</b> Show all information about images running on <b>Kubernetes</b> through this command
+```
+    kubectl get all
+```
+
+<b>7 )</b> Show all <b>services</b> running on Kubernetes through this command
+```
+    kubectl get services
+```
+
+<b>8 )</b> Show <b>eureka server</b> on Kubernetes through this command
+```
+    minikube service eureka-lb
+```
+
+<b>9 )</b> Show <b>api gateway</b> on Kubernetes through this command
+```
+    minikube service cloud-gateway-svc
+```
+<b>10 )</b> Copy <b>IP address</b> and Replace <b>it</b> with <b>localhost</b> of the <b>endpoints</b> defined in <b>postman collection</b>
+
+
 <b>Jenkins</b>
 
 <b>1 )</b> Download <b>jenkins</b> to access this link https://hub.docker.com/r/jenkins/jenkins
@@ -425,6 +450,8 @@
     <img src ="screenshots/docker_1.PNG">
     <p> Docker Hub </p>
     <img src ="screenshots/docker_2.PNG">
+    <p> Kubernetes Dashboard </p>
+    <img src ="screenshots/kubernetes_screenshot.PNG">
     <p> Jenkins Figure 1 </p>
     <img src ="screenshots/jenkins_1.PNG">
     <p> Jenkins Figure 2 </p>
